@@ -8,6 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController">
             <connections>
                 <outlet property="detailTableView" destination="DDy-xl-aXl" id="LiA-VC-x2k"/>
+                <outlet property="inButton" destination="hGC-cM-oaL" id="9be-Sl-pY5"/>
+                <outlet property="outButton" destination="JrA-SB-zbe" id="AMY-m0-JeC"/>
                 <outlet property="timeLabel" destination="Vwa-Uk-2AO" id="i12-Re-lb8"/>
                 <outlet property="titleLabel" destination="1v9-SM-fx3" id="0a9-Xj-isq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

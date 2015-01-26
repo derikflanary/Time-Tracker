@@ -6,23 +6,23 @@
 //  Copyright (c) 2015 DevMountain. All rights reserved.
 //
 
-#import "Projects.h"
-#import "Entries.h"
+#import "Project.h"
+#import "Entry.h"
 #import "ProjectController.h"
 static NSString * const projectTitleKey = @"titleKey";
 static NSString * const projectTextKey = @"textKey";
 static NSString * const projectTimeKey = @"dateKey";
 static NSString * const projectEntriesKey = @"projectEntriesKey";
 
-@interface Projects()
+@interface Project()
 
-@property (nonatomic, strong)Entries *currentEntry;
+@property (nonatomic, strong)Entry *currentEntry;
 
 
 @end
 
 
-@implementation Projects
+@implementation Project
 
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
@@ -53,7 +53,7 @@ static NSString * const projectEntriesKey = @"projectEntriesKey";
 }
 
 -(void)startNewEntry{
-    Entries *newEntry = [Entries new];
+    Entry *newEntry = [Entry new];
     newEntry.startTime = [NSDate date];
     self.currentEntry = newEntry;
     [self addEntry:newEntry];
@@ -61,10 +61,10 @@ static NSString * const projectEntriesKey = @"projectEntriesKey";
 }
 -(void)endCurrentEntry{
     self.currentEntry.endTime = [NSDate date];
-    [self addEntry:self.currentEntry];
+    //[self addEntry:self.currentEntry];
 }
 
--(void)addEntry:(Entries *)entry{
+-(void)addEntry:(Entry *)entry{
     if (!entry){
         return;
     }
@@ -75,11 +75,14 @@ static NSString * const projectEntriesKey = @"projectEntriesKey";
     
 }
 
--(void)removeEntry:(Entries *)entry{
+-(void)removeEntry:(Entry *)entry{
+    if (!entry){
+        return;
+    }
     
 }
 
-- (void)replaceEntry:(Entries *)oldEntry withEntry:(Entries *)newEntry{
+- (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry{
     
 }
 

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Projects.h"
-#import "Entries.h"
+#import "Project.h"
+#import "Entry.h"
 
 @interface ProjectController : NSObject
 
@@ -17,9 +17,9 @@
 
 + (ProjectController *)sharedInstance;
 
--(void)addProject:(Projects *)project;
--(void)removeProject:(Projects *)project;
-- (void)replaceProject:(Projects *)oldProject withEntry:(Projects *)newProjects;
+-(void)addProject:(Project *)project;
+-(void)removeProject:(Project *)project;
+- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProjects;
 
 
 @end

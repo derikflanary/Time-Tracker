@@ -55,7 +55,9 @@
 }
 
 -(void)newProject:(id)sender{
+    Project *newProject = [Project new];
     DetailViewController *detailViewController = [DetailViewController new];
+    detailViewController.project = newProject;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Entries.h"
+#import "Entry.h"
 
-@interface Projects : NSObject
+@interface Project : NSObject
 
 @property (nonatomic, strong)NSString *projectTitle;
 @property (nonatomic, strong)NSString *projectText;
@@ -22,9 +22,9 @@
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
 -(NSDictionary *)makeProjectIntoDictionary;
--(void)addEntry:(Entries *)entry;
--(void)removeEntry:(Entries *)entry;
-- (void)replaceEntry:(Entries *)oldEntry withEntry:(Entries *)newEntry;
+-(void)addEntry:(Entry *)entry;
+-(void)removeEntry:(Entry *)entry;
+- (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry;
 -(void)startNewEntry;
 -(void)endCurrentEntry;
 

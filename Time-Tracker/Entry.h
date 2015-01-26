@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Entries : NSObject
+@interface Entry : NSObject
 
 @property (nonatomic, strong)NSDate*startTime;
 @property (nonatomic, strong)NSDate *endTime;

@@ -36,15 +36,15 @@
     
 }
 
--(void)addProject:(Projects *)project{
+-(void)addProject:(Project *)project{
     
 }
 
--(void)removeProject:(Projects *)project{
+-(void)removeProject:(Project *)project{
     
 }
 
-- (void)replaceProject:(Projects *)oldProject withEntry:(Projects *)newProjects{
+- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProjects{
     
 }
 

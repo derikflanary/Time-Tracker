@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *detailTableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *inButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *outButton;
 
 @end
 
@@ -37,12 +39,13 @@
 }
 - (IBAction)inPressed:(id)sender {
     [self.project startNewEntry];
-  
+    self.inButton.enabled = NO;
     [self.detailTableView reloadData];
-      NSLog(@"%@", self.project.entries);
+    
 }
 - (IBAction)outPressed:(id)sender {
     [self.project endCurrentEntry];
+    self.inButton.enabled = YES;
     [self.detailTableView reloadData];
 }
 - (IBAction)reportPressed:(id)sender {
@@ -58,7 +61,8 @@
     if (!cell){
         cell = [UITableViewCell new];
     }
-    cell.textLabel.text = [self.project.entries objectAtIndex:indexPath.row];
+    Entry *entry = [self.project.entries objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@:%@", entry.startTime, entry.endTime];
     return cell;
 }
 

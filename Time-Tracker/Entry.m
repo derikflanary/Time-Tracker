@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 DevMountain. All rights reserved.
 //
 
-#import "Entries.h"
+#import "Entry.h"
 static NSString * const startTimeKey = @"startTimeKey";
 static NSString * const endTimeKey = @"endTimeKey";
 //static NSString * const timeKey = @"timeKey";
 
-@implementation Entries
+@implementation Entry
 
 -(id)initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
