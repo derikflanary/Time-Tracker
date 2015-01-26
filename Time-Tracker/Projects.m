@@ -14,6 +14,12 @@ static NSString * const projectTextKey = @"textKey";
 static NSString * const projectTimeKey = @"dateKey";
 static NSString * const projectEntriesKey = @"projectEntriesKey";
 
+@interface Projects()
+
+@property (nonatomic, strong)Entries *currentEntry;
+
+
+@end
 
 
 @implementation Projects

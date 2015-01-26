@@ -17,7 +17,7 @@
 @property (nonatomic, strong)NSDate *projectTime;
 @property (nonatomic, strong)NSArray *entries;
 
-@property (nonatomic, strong)Entries *currentEntry;
+
 
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
