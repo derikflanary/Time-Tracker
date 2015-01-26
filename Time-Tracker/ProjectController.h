@@ -13,15 +13,13 @@
 @interface ProjectController : NSObject
 
 @property(readonly, strong)NSArray *projects;
-@property(readonly,strong)NSArray *entries;
+
 
 + (ProjectController *)sharedInstance;
 
 -(void)addProject:(Projects *)project;
 -(void)removeProject:(Projects *)project;
 - (void)replaceProject:(Projects *)oldProject withEntry:(Projects *)newProjects;
--(void)addEntry:(Entries *)entry;
--(void)removeEntry:(Entries *)entry;
-- (void)replaceEntry:(Entries *)oldEntry withEntry:(Entries *)newEntry;
+
 
 @end

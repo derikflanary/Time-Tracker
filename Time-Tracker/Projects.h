@@ -8,14 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Entries.h"
 
 @interface Projects : NSObject
 
 @property (nonatomic, strong)NSString *projectTitle;
 @property (nonatomic, strong)NSString *projectText;
 @property (nonatomic, strong)NSDate *projectTime;
+@property (nonatomic, strong)NSArray *entries;
+
+@property (nonatomic, strong)Entries *currentEntry;
+
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
 -(NSDictionary *)makeProjectIntoDictionary;
+-(void)addEntry:(Entries *)entry;
+-(void)removeEntry:(Entries *)entry;
+- (void)replaceEntry:(Entries *)oldEntry withEntry:(Entries *)newEntry;
+-(void)startNewEntry;
+-(void)endCurrentEntry;
 
 @end

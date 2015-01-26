@@ -10,8 +10,8 @@
 
 @interface Entries : NSObject
 
-@property (nonatomic, strong)NSString *startTime;
-@property (nonatomic, strong)NSString *endTime;
+@property (nonatomic, strong)NSDate*startTime;
+@property (nonatomic, strong)NSDate *endTime;
 //@property (nonatomic, strong)NSDate *entryTime;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;

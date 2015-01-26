@@ -10,8 +10,8 @@
 
 @interface ProjectController()
 
-@property(nonatomic,strong)NSArray *projects;
-@property (nonatomic, strong)NSArray *entries;
+@property(nonatomic,strong)NSArray *projectsArray;
+
 @end
 
 @implementation ProjectController
@@ -48,17 +48,6 @@
     
 }
 
--(void)addEntry:(Entries *)entry{
-    
-}
-
--(void)removeEntry:(Entries *)entry{
-    
-}
-
-- (void)replaceEntry:(Entries *)oldEntry withEntry:(Entries *)newEntry{
-    
-}
 
 
 @end

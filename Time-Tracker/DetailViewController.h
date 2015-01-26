@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ProjectController.h"
+
 @interface DetailViewController : UIViewController
+@property (nonatomic, strong)Projects *project;
+
+
 
 @end

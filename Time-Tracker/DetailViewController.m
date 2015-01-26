@@ -7,7 +7,8 @@
 //
 
 #import "DetailViewController.h"
-#import "ListViewController.h"
+
+
 
 @interface DetailViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleLabel;
@@ -35,14 +36,20 @@
 - (IBAction)addPressed:(id)sender {
 }
 - (IBAction)inPressed:(id)sender {
+    [self.project startNewEntry];
+  
+    [self.detailTableView reloadData];
+      NSLog(@"%@", self.project.entries);
 }
 - (IBAction)outPressed:(id)sender {
+    [self.project endCurrentEntry];
+    [self.detailTableView reloadData];
 }
 - (IBAction)reportPressed:(id)sender {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.project.entries.count;
 }
 
 
@@ -51,7 +58,7 @@
     if (!cell){
         cell = [UITableViewCell new];
     }
-    cell.textLabel.text = @"A entry";
+    cell.textLabel.text = [self.project.entries objectAtIndex:indexPath.row];
     return cell;
 }
 
