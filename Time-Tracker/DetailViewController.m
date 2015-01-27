@@ -21,6 +21,12 @@
 
 @implementation DetailViewController
 
+-(void)updateThisProject:(Project *)project{
+    self.titleLabel.text = self.project.projectTitle;
+    self.timeLabel.text = [self.project setProjectTime];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.detailTableView.dataSource = self;
@@ -28,16 +34,18 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-    self.titleLabel.text = self.project.projectTitle;
-    self.timeLabel.text = [self.project setProjectTime];
-    // Do any additional setup after loading the view from its nib.
+    [self updateThisProject:self.project];
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
-    if (self.titleLabel.text == nil) {
-        return;
-    }else{
+    if (self.project.projectTitle == nil) {
         self.project.projectTitle = self.titleLabel.text;
         [[ProjectController sharedInstance]addProject:self.project];
+    }else{
+        self.updatedProject.projectTitle = self.titleLabel.text;
+        self.updatedProject.entries = self.project.entries;
+        [[ProjectController sharedInstance]replaceProject:self.project withEntry:self.updatedProject];
+        
     }
 }
 

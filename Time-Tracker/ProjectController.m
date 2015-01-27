@@ -80,7 +80,17 @@ static NSString * const projectKey = @"projectKey";
     
 }
 
-- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProjects{
+- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProject{
+    if(!oldProject || !newProject){
+        return;
+    }
+    NSMutableArray *mutableProjects = self.projects.mutableCopy;
+    if ([mutableProjects containsObject:oldProject]) {
+        NSInteger indexN = [mutableProjects indexOfObject:oldProject];
+        [mutableProjects replaceObjectAtIndex:indexN withObject:newProject];
+    }
+    self.projects = mutableProjects;
+    [self saveProjectsToDefaults:self.projects];
     
 }
 
