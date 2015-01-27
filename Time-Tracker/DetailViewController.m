@@ -23,7 +23,7 @@
 
 -(void)updateThisProject:(Project *)project{
     self.titleLabel.text = self.project.projectTitle;
-    self.timeLabel.text = [self.project setProjectTime];
+    //self.timeLabel.text = [self.project setProjectTime];
 
 }
 
@@ -42,9 +42,10 @@
         self.project.projectTitle = self.titleLabel.text;
         [[ProjectController sharedInstance]addProject:self.project];
     }else{
-        self.updatedProject.projectTitle = self.titleLabel.text;
-        self.updatedProject.entries = self.project.entries;
-        [[ProjectController sharedInstance]replaceProject:self.project withEntry:self.updatedProject];
+        Project *updatedProject = [Project new];
+        updatedProject.projectTitle = self.titleLabel.text;
+        updatedProject.entries = self.project.entries;
+        [[ProjectController sharedInstance]replaceProject:self.project withEntry:updatedProject];
         
     }
 }
@@ -84,7 +85,7 @@
     }
     Entry *entry = [self.project.entries objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@:%@", entry.startTime, entry.endTime];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:8];
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:9];
     return cell;
 }
 

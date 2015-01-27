@@ -89,6 +89,7 @@ static NSString * const projectKey = @"projectKey";
         NSInteger indexN = [mutableProjects indexOfObject:oldProject];
         [mutableProjects replaceObjectAtIndex:indexN withObject:newProject];
     }
+    
     self.projects = mutableProjects;
     [self saveProjectsToDefaults:self.projects];
     
