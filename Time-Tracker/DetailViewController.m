@@ -28,7 +28,16 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
+    self.titleLabel.text = self.project.projectTitle;
     // Do any additional setup after loading the view from its nib.
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    if (self.titleLabel.text == nil) {
+        return;
+    }else{
+        self.project.projectTitle = self.titleLabel.text;
+        [[ProjectController sharedInstance]addProject:self.project];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,12 +46,14 @@
 }
 - (IBAction)addPressed:(id)sender {
 }
+
 - (IBAction)inPressed:(id)sender {
     [self.project startNewEntry];
     self.inButton.enabled = NO;
     [self.detailTableView reloadData];
     
 }
+
 - (IBAction)outPressed:(id)sender {
     [self.project endCurrentEntry];
     self.inButton.enabled = YES;

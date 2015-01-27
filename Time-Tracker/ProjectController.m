@@ -8,9 +8,11 @@
 
 #import "ProjectController.h"
 
+static NSString * const projectKey = @"projectKey";
+
 @interface ProjectController()
 
-@property(nonatomic,strong)NSArray *projectsArray;
+@property(nonatomic,strong)NSArray *projects;
 
 @end
 
@@ -29,15 +31,48 @@
 
 
 -(void)loadProjectsFromDefaults{
+    NSArray *projectDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:projectKey];
+    NSMutableArray *arrayOfProjects = [NSMutableArray array];
+    for (NSDictionary *projectDict in projectDictionaries) {
+        Project *project = [[Project alloc]initWithDictionary:projectDict];
+        [arrayOfProjects addObject:project];
+    }
+    for (Project *project in arrayOfProjects) {
+        NSMutableArray *mutableEntries = [NSMutableArray array];
+        for (NSDictionary *entryDict in project.entries) {
+            Entry *entry = [[Entry alloc]initWithDictionary:entryDict];
+            [mutableEntries addObject:entry];
+        }
+        project.entries = mutableEntries;
+    }
     
 }
 
--(void)saveProjectsToDefaults{
+-(void)saveProjectsToDefaults:(NSArray*)projectArray{
+   
+           NSMutableArray *mutableProjectDictionariesArray = [NSMutableArray array];
     
+    for (Project *project in projectArray) {
+         NSMutableArray *mutableEntries = [NSMutableArray array];
+        
+        for (Entry *entry in project.entries) {
+            NSDictionary *entryDict = [NSDictionary dictionary];
+            entryDict = [entry makeEntryIntoDictionary];
+            [mutableEntries addObject:entryDict];
+        }
+        project.entries = mutableEntries;
+        NSDictionary *projectDictionary = [project makeProjectIntoDictionary];
+        [mutableProjectDictionariesArray addObject:projectDictionary];
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:mutableProjectDictionariesArray forKey:projectKey];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 -(void)addProject:(Project *)project{
-    
+    NSMutableArray *mutableProjectArray = [[NSMutableArray alloc]initWithArray:self.projects];
+    [mutableProjectArray addObject:project];
+    self.projects = mutableProjectArray;
+    [self saveProjectsToDefaults:self.projects];
 }
 
 -(void)removeProject:(Project *)project{

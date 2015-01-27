@@ -12,7 +12,7 @@
 static NSString * const projectTitleKey = @"titleKey";
 static NSString * const projectTextKey = @"textKey";
 static NSString * const projectTimeKey = @"dateKey";
-static NSString * const projectEntriesKey = @"projectEntriesKey";
+static NSString * const projectEntryKey = @"projectEntryKey";
 
 @interface Project()
 
@@ -30,7 +30,7 @@ static NSString * const projectEntriesKey = @"projectEntriesKey";
         self.projectTitle = [dictionary objectForKey:projectTitleKey];
         self.projectText = [dictionary objectForKey:projectTextKey];
         self.projectTime = [dictionary objectForKey:projectTimeKey];
-        self.entries = [dictionary objectForKey:projectEntriesKey];
+        self.entries = [dictionary objectForKey:projectEntryKey];
     }
     return self;
 }
@@ -47,7 +47,7 @@ static NSString * const projectEntriesKey = @"projectEntriesKey";
         [mutableProjectDict setValue:self.projectTime forKey:projectTimeKey];
     }
     if (self.entries){
-        [mutableProjectDict setValue:self forKey:projectEntriesKey];
+        [mutableProjectDict setValue:self.entries forKey:projectEntryKey];
     }
     return mutableProjectDict;
 }
@@ -79,7 +79,11 @@ static NSString * const projectEntriesKey = @"projectEntriesKey";
     if (!entry){
         return;
     }
-    
+    NSMutableArray *mutableEntries = [[NSMutableArray alloc]initWithArray:self.entries];
+    [mutableEntries removeObject:entry];
+    self.entries = mutableEntries;
+   
+
 }
 
 - (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry{

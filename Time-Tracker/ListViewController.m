@@ -13,10 +13,17 @@
 
 @interface ListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
+@property (nonatomic, strong)NSArray *projects;
 @end
 
 @implementation ListViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.projects = [ProjectController sharedInstance].projects;
+    [self.tableView reloadData];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Projects";
@@ -28,11 +35,15 @@
     UIBarButtonItem *addProjectButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newProject:)];
     self.navigationItem.rightBarButtonItem = addProjectButton;
     
+    self.projects = [ProjectController sharedInstance].projects;
+    
+    
     // Do any additional setup after loading the view.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    
+    return [self.projects count];
 }
 
 
@@ -41,7 +52,8 @@
     if (!cell){
         cell = [UITableViewCell new];
     }
-    cell.textLabel.text = @"A project";
+    Project *project = [self.projects objectAtIndex:indexPath.row];
+    cell.textLabel.text = project.projectTitle;
     return cell;
 }
 
@@ -51,6 +63,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Project *thisProject = [self.projects objectAtIndex:indexPath.row];
+    DetailViewController *detailViewController = [DetailViewController new];
+    detailViewController.project = thisProject;
+    [self.navigationController pushViewController:detailViewController animated:YES];
     
 }
 
