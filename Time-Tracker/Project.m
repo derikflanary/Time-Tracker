@@ -71,7 +71,6 @@ static NSString * const projectEntryKey = @"projectEntryKey";
     NSMutableArray *mutableEntries = [[NSMutableArray alloc]initWithArray:self.entries];
     [mutableEntries addObject:entry];
     self.entries = mutableEntries;
-    NSLog(@"%@", mutableEntries);
     
 }
 
@@ -84,6 +83,34 @@ static NSString * const projectEntryKey = @"projectEntryKey";
     self.entries = mutableEntries;
    
 
+}
+
+-(NSString *)setProjectTime {
+    
+    NSInteger totalHours = 0;
+    NSInteger totalMinutes = 0;
+    
+    for (Entry *entry in self.entries) {
+        
+        NSTimeInterval distanceBetweenDates = [entry.endTime timeIntervalSinceDate:entry.startTime];
+        
+        // First we'll see how many hours
+        double secondsInAnHour = 3600;
+        NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+        
+        // We need to subtract out the hours and then see how many minutes
+        double secondsInAMinute = 60;
+        NSInteger minutesBetweenDates = (distanceBetweenDates - (hoursBetweenDates * secondsInAnHour)) / secondsInAMinute;
+        
+        totalHours += hoursBetweenDates;
+        totalMinutes += minutesBetweenDates;
+        
+    }
+    NSString *hourString = totalHours < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalHours] : [NSString stringWithFormat:@"%ld", (long)totalHours];
+    
+    NSString *minuteString = totalMinutes < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalMinutes] : [NSString stringWithFormat:@"%ld", (long)totalMinutes];
+    
+    return [NSString stringWithFormat:@"%@:%@", hourString, minuteString];
 }
 
 - (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry{

@@ -29,6 +29,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
     self.titleLabel.text = self.project.projectTitle;
+    self.timeLabel.text = [self.project setProjectTime];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -58,6 +59,7 @@
     [self.project endCurrentEntry];
     self.inButton.enabled = YES;
     [self.detailTableView reloadData];
+    self.timeLabel.text = [self.project setProjectTime];
 }
 - (IBAction)reportPressed:(id)sender {
 }
@@ -74,6 +76,7 @@
     }
     Entry *entry = [self.project.entries objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@:%@", entry.startTime, entry.endTime];
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:8];
     return cell;
 }
 

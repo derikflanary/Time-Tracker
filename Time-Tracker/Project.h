@@ -27,5 +27,6 @@
 - (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry;
 -(void)startNewEntry;
 -(void)endCurrentEntry;
+-(NSString *)setProjectTime;
 
 @end

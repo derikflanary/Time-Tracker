@@ -45,6 +45,7 @@ static NSString * const projectKey = @"projectKey";
         }
         project.entries = mutableEntries;
     }
+    self.projects = arrayOfProjects;
     
 }
 
