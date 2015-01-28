@@ -67,6 +67,7 @@ static NSString * const projectKey = @"projectKey";
     }
     [[NSUserDefaults standardUserDefaults]setObject:mutableProjectDictionariesArray forKey:projectKey];
     [[NSUserDefaults standardUserDefaults]synchronize];
+    
 }
 
 -(void)addProject:(Project *)project{
@@ -74,6 +75,7 @@ static NSString * const projectKey = @"projectKey";
     [mutableProjectArray addObject:project];
     self.projects = mutableProjectArray;
     [self saveProjectsToDefaults:self.projects];
+    [self loadProjectsFromDefaults];
 }
 
 -(void)removeProject:(Project *)project{
@@ -92,6 +94,7 @@ static NSString * const projectKey = @"projectKey";
     
     self.projects = mutableProjects;
     [self saveProjectsToDefaults:self.projects];
+    [self loadProjectsFromDefaults];
     
 }
 
