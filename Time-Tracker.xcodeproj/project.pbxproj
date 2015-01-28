@@ -25,6 +25,8 @@
 		EEA334F01A7429E60009C92A /* ProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA334EF1A7429E60009C92A /* ProjectController.m */; };
 		EEA335261A7437730009C92A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA335241A7437730009C92A /* DetailViewController.m */; };
 		EEA335271A7437730009C92A /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA335251A7437730009C92A /* DetailViewController.xib */; };
+		EEA3352B1A786D470009C92A /* CustomEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA335291A786D470009C92A /* CustomEntryViewController.m */; };
+		EEA3352C1A786D470009C92A /* CustomEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,9 @@
 		EEA335231A7437730009C92A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		EEA335241A7437730009C92A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		EEA335251A7437730009C92A /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		EEA335281A786D470009C92A /* CustomEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEntryViewController.h; sourceTree = "<group>"; };
+		EEA335291A786D470009C92A /* CustomEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEntryViewController.m; sourceTree = "<group>"; };
+		EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomEntryViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +136,9 @@
 				EEA335231A7437730009C92A /* DetailViewController.h */,
 				EEA335241A7437730009C92A /* DetailViewController.m */,
 				EEA335251A7437730009C92A /* DetailViewController.xib */,
+				EEA335281A786D470009C92A /* CustomEntryViewController.h */,
+				EEA335291A786D470009C92A /* CustomEntryViewController.m */,
+				EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */,
 				EEA334EE1A7429E60009C92A /* ProjectController.h */,
 				EEA334EF1A7429E60009C92A /* ProjectController.m */,
 				EEA334E81A74289B0009C92A /* Project.h */,
@@ -250,6 +258,7 @@
 			files = (
 				7116F78019421700006C8F06 /* InfoPlist.strings in Resources */,
 				EEA335271A7437730009C92A /* DetailViewController.xib in Resources */,
+				EEA3352C1A786D470009C92A /* CustomEntryViewController.xib in Resources */,
 				7116F78819421700006C8F06 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +280,7 @@
 			files = (
 				7116F78619421700006C8F06 /* TTAppDelegate.m in Sources */,
 				EEA334ED1A7428AA0009C92A /* Entry.m in Sources */,
+				EEA3352B1A786D470009C92A /* CustomEntryViewController.m in Sources */,
 				7116F78219421700006C8F06 /* main.m in Sources */,
 				EEA334F01A7429E60009C92A /* ProjectController.m in Sources */,
 				EEA334E71A7425D40009C92A /* ListViewController.m in Sources */,

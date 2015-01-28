@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "CustomEntryViewController.h"
 
 
 
@@ -23,31 +24,46 @@
 
 -(void)updateThisProject:(Project *)project{
     self.titleLabel.text = self.project.projectTitle;
-    //self.timeLabel.text = [self.project setProjectTime];
-
+    self.timeLabel.text = [self.project setProjectTime];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.detailTableView.dataSource = self;
     self.detailTableView.delegate = self;
-    
+    self.updatedProject = self.project;
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePressed:)];
+    self.navigationItem.rightBarButtonItem = saveButton;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-    [self updateThisProject:self.project];
+    [self updateThisProject:self.updatedProject];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    if (self.project.projectTitle == nil) {
+-(void)viewDidAppear:(BOOL)animated{
+    self.timeLabel.text = [self.updatedProject setProjectTime];
+    //[self updateThisProject:self.updatedProject];
+}
+
+-(void)savePressed:(id)selector{
+    if([self.titleLabel.text  isEqual: @""]){
+        UIAlertController *setTitleAlert = [UIAlertController alertControllerWithTitle:@"No Project Title" message:@"Please insert a title and then click save again" preferredStyle:UIAlertControllerStyleAlert];
+        [setTitleAlert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
+        }]];
+        [self presentViewController:setTitleAlert animated:YES completion:nil];
+    
+    }else if (self.project == nil) {
         self.project.projectTitle = self.titleLabel.text;
         [[ProjectController sharedInstance]addProject:self.project];
     }else{
-        Project *updatedProject = [Project new];
-        updatedProject.projectTitle = self.titleLabel.text;
-        updatedProject.entries = self.project.entries;
-        [[ProjectController sharedInstance]replaceProject:self.project withEntry:updatedProject];
+        
+        self.updatedProject.projectTitle = self.titleLabel.text;
+        //self.updatedProject.entries = self.project.entries;
+        [[ProjectController sharedInstance]replaceProject:self.project withEntry:self.updatedProject];
         
     }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,26 +71,29 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)addPressed:(id)sender {
+    CustomEntryViewController *customViewController = [CustomEntryViewController new];
+    customViewController.project = self.updatedProject;
+    [self.navigationController pushViewController:customViewController animated:YES];
 }
 
 - (IBAction)inPressed:(id)sender {
-    [self.project startNewEntry];
+    [self.updatedProject startNewEntry];
     self.inButton.enabled = NO;
     [self.detailTableView reloadData];
     
 }
 
 - (IBAction)outPressed:(id)sender {
-    [self.project endCurrentEntry];
+    [self.updatedProject endCurrentEntry];
     self.inButton.enabled = YES;
     [self.detailTableView reloadData];
-    self.timeLabel.text = [self.project setProjectTime];
+    self.timeLabel.text = [self.updatedProject setProjectTime];
 }
 - (IBAction)reportPressed:(id)sender {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.project.entries.count;
+    return self.updatedProject.entries.count;
 }
 
 
@@ -83,7 +102,7 @@
     if (!cell){
         cell = [UITableViewCell new];
     }
-    Entry *entry = [self.project.entries objectAtIndex:indexPath.row];
+    Entry *entry = [self.updatedProject.entries objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@:%@", entry.startTime, entry.endTime];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:9];
     return cell;
