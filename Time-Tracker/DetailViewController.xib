@@ -10,6 +10,7 @@
                 <outlet property="detailTableView" destination="DDy-xl-aXl" id="LiA-VC-x2k"/>
                 <outlet property="inButton" destination="hGC-cM-oaL" id="9be-Sl-pY5"/>
                 <outlet property="outButton" destination="JrA-SB-zbe" id="AMY-m0-JeC"/>
+                <outlet property="textView" destination="B4A-dz-uQq" id="RZK-iR-kti"/>
                 <outlet property="timeLabel" destination="Vwa-Uk-2AO" id="i12-Re-lb8"/>
                 <outlet property="titleLabel" destination="1v9-SM-fx3" id="0a9-Xj-isq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,13 +22,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Project Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1v9-SM-fx3">
-                    <rect key="frame" x="9" y="90" width="302" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <rect key="frame" x="8" y="74" width="302" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DDy-xl-aXl">
-                    <rect key="frame" x="0.0" y="194" width="320" height="309"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="DDy-xl-aXl">
+                    <rect key="frame" x="0.0" y="264" width="320" height="239"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fOv-tY-mLF">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
@@ -58,11 +59,17 @@
                     </items>
                 </toolbar>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vwa-Uk-2AO">
-                    <rect key="frame" x="126" y="151" width="68" height="21"/>
+                    <rect key="frame" x="126" y="112" width="68" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4A-dz-uQq">
+                    <rect key="frame" x="10" y="135" width="302" height="121"/>
+                    <color key="backgroundColor" red="0.94494393454028169" green="1" blue="0.93518296813753476" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="12"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

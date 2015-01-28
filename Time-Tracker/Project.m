@@ -93,21 +93,23 @@ static NSString * const projectEntryKey = @"projectEntryKey";
     for (Entry *entry in self.entries) {
         
         NSTimeInterval distanceBetweenDates = [entry.endTime timeIntervalSinceDate:entry.startTime];
-        
-        // First we'll see how many hours
-        double secondsInAnHour = 3600;
-        NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
-        
-        // We need to subtract out the hours and then see how many minutes
-        double secondsInAMinute = 60;
-        NSInteger minutesBetweenDates = (distanceBetweenDates - (hoursBetweenDates * secondsInAnHour)) / secondsInAMinute;
-        
-        totalHours += hoursBetweenDates;
-        totalMinutes += minutesBetweenDates;
-        if (totalMinutes > 59) {
-            NSInteger hoursInMinutes = totalMinutes/60;
-            totalMinutes = totalMinutes - (hoursBetweenDates * 60);
-            totalHours = totalHours + hoursInMinutes;
+        if (distanceBetweenDates > 0) {
+            // First we'll see how many hours
+            double secondsInAnHour = 3600;
+            NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+            
+            // We need to subtract out the hours and then see how many minutes
+            double secondsInAMinute = 60;
+            NSInteger minutesBetweenDates = (distanceBetweenDates - (hoursBetweenDates * secondsInAnHour)) / secondsInAMinute;
+            
+            totalHours += hoursBetweenDates;
+            totalMinutes += minutesBetweenDates;
+            if (totalMinutes > 59) {
+                NSInteger hoursInMinutes = totalMinutes/60;
+                totalMinutes = totalMinutes - (hoursInMinutes * 60);
+                totalHours = totalHours + hoursInMinutes;
+            }
+       
         }
         
     }

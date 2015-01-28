@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "CustomEntryViewController.h"
 #import "CustomTableViewCell.h"
+#import <MessageUI/MessageUI.h>
 
 
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *detailTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *inButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *outButton;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -26,7 +28,7 @@
 -(void)updateThisProject:(Project *)project{
     self.titleLabel.text = self.project.projectTitle;
     self.timeLabel.text = [self.project setProjectTime];
-    
+    self.textView.text = self.project.projectText;
 }
 
 - (void)viewDidLoad {
@@ -60,7 +62,7 @@
     }else{
         
         self.updatedProject.projectTitle = self.titleLabel.text;
-        //self.updatedProject.entries = self.project.entries;
+        self.updatedProject.projectText = self.textView.text;
         [[ProjectController sharedInstance]replaceProject:self.project withEntry:self.updatedProject];
         
     }
@@ -91,6 +93,11 @@
     self.timeLabel.text = [self.updatedProject setProjectTime];
 }
 - (IBAction)reportPressed:(id)sender {
+    MFMailComposeViewController *mailViewController = [MFMailComposeViewController new];
+    [mailViewController setSubject:@"This is a Subject"];
+    [mailViewController setMessageBody:@"Attached is a dirty picture" isHTML:NO];
+    [self presentViewController:mailViewController animated:YES completion:nil];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -127,6 +134,17 @@
 }
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    NSArray*entryArray = self.updatedProject.entries;
+    //
+    Entry *entry = [entryArray objectAtIndex:indexPath.row];
+    [self.updatedProject removeEntry:entry];
+    [self.detailTableView reloadData];
+    self.timeLabel.text = [self.updatedProject setProjectTime];
+    //        //    }
 }
 
 
