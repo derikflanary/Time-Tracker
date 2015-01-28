@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "CustomEntryViewController.h"
+#import "CustomTableViewCell.h"
 
 
 
@@ -98,9 +99,10 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell Two"];
+    
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell Two"];
     if (!cell){
-        cell = [UITableViewCell new];
+        cell = [CustomTableViewCell new];
     }
     Entry *entry = [self.updatedProject.entries objectAtIndex:indexPath.row];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
@@ -109,8 +111,9 @@
     NSString *endDateofEntry = [dateFormatter stringFromDate:entry.endTime];
     NSString *entryTime = [entry setEntryTime];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"In: %@ | Out: %@ | Total: %@", startdateOfEntry, endDateofEntry, entryTime];
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:9];
+    cell.textLabel.text = [NSString stringWithFormat:@"In: %@ | Out: %@", startdateOfEntry, endDateofEntry];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Time: %@", entryTime];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     return cell;
 }
 
