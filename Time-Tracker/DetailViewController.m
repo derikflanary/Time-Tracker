@@ -103,7 +103,13 @@
         cell = [UITableViewCell new];
     }
     Entry *entry = [self.updatedProject.entries objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@:%@", entry.startTime, entry.endTime];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy 'at' HH:mm"];
+    NSString *startdateOfEntry = [dateFormatter stringFromDate:entry.startTime];
+    NSString *endDateofEntry = [dateFormatter stringFromDate:entry.endTime];
+    NSString *entryTime = [entry setEntryTime];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"In: %@ | Out: %@ | Total: %@", startdateOfEntry, endDateofEntry, entryTime];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:9];
     return cell;
 }

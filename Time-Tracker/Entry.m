@@ -37,4 +37,32 @@ static NSString * const endTimeKey = @"endTimeKey";
     return mutableEntryDict;
 }
 
+-(NSString *)setEntryTime {
+    
+    NSInteger totalHours = 0;
+    NSInteger totalMinutes = 0;
+    
+        
+        NSTimeInterval distanceBetweenDates = [self.endTime timeIntervalSinceDate:self.startTime];
+        
+        // First we'll see how many hours
+        double secondsInAnHour = 3600;
+        NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+        
+        // We need to subtract out the hours and then see how many minutes
+        double secondsInAMinute = 60;
+        NSInteger minutesBetweenDates = (distanceBetweenDates - (hoursBetweenDates * secondsInAnHour)) / secondsInAMinute;
+        
+        totalHours += hoursBetweenDates;
+        totalMinutes += minutesBetweenDates;
+        
+    
+    NSString *hourString = totalHours < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalHours] : [NSString stringWithFormat:@"%ld", (long)totalHours];
+    
+    NSString *minuteString = totalMinutes < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalMinutes] : [NSString stringWithFormat:@"%ld", (long)totalMinutes];
+    
+    return [NSString stringWithFormat:@"%@:%@", hourString, minuteString];
+}
+
+
 @end

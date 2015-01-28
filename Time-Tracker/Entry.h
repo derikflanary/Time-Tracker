@@ -16,6 +16,6 @@
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
 -(NSDictionary *)makeEntryIntoDictionary;
-
+-(NSString *)setEntryTime;
 
 @end

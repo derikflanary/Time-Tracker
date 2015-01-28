@@ -104,6 +104,11 @@ static NSString * const projectEntryKey = @"projectEntryKey";
         
         totalHours += hoursBetweenDates;
         totalMinutes += minutesBetweenDates;
+        if (totalMinutes > 59) {
+            NSInteger hoursInMinutes = totalMinutes/60;
+            totalMinutes = totalMinutes - (hoursBetweenDates * 60);
+            totalHours = totalHours + hoursInMinutes;
+        }
         
     }
     NSString *hourString = totalHours < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalHours] : [NSString stringWithFormat:@"%ld", (long)totalHours];
