@@ -21,13 +21,15 @@
 		7116F79B19421700006C8F06 /* Time_TrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7116F79A19421700006C8F06 /* Time_TrackerTests.m */; };
 		EE40EB071A797558007BCEA0 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE40EB061A797558007BCEA0 /* CustomTableViewCell.m */; };
 		EEA334E71A7425D40009C92A /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA334E61A7425D40009C92A /* ListViewController.m */; };
-		EEA334EA1A74289B0009C92A /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA334E91A74289B0009C92A /* Project.m */; };
-		EEA334ED1A7428AA0009C92A /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA334EC1A7428AA0009C92A /* Entry.m */; };
 		EEA334F01A7429E60009C92A /* ProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA334EF1A7429E60009C92A /* ProjectController.m */; };
 		EEA335261A7437730009C92A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA335241A7437730009C92A /* DetailViewController.m */; };
 		EEA335271A7437730009C92A /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA335251A7437730009C92A /* DetailViewController.xib */; };
 		EEA3352B1A786D470009C92A /* CustomEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA335291A786D470009C92A /* CustomEntryViewController.m */; };
 		EEA3352C1A786D470009C92A /* CustomEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */; };
+		EED538451A7C0721008958C7 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = EED538441A7C0721008958C7 /* Stack.m */; };
+		EED538481A7C0742008958C7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EED538461A7C0742008958C7 /* Model.xcdatamodeld */; };
+		EED5384B1A7C10E4008958C7 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = EED5384A1A7C10E4008958C7 /* Project.m */; };
+		EED5384E1A7C10FA008958C7 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = EED5384D1A7C10FA008958C7 /* Entry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,10 +63,6 @@
 		EE40EB061A797558007BCEA0 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		EEA334E51A7425D40009C92A /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		EEA334E61A7425D40009C92A /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
-		EEA334E81A74289B0009C92A /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
-		EEA334E91A74289B0009C92A /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
-		EEA334EB1A7428AA0009C92A /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
-		EEA334EC1A7428AA0009C92A /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		EEA334EE1A7429E60009C92A /* ProjectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectController.h; sourceTree = "<group>"; };
 		EEA334EF1A7429E60009C92A /* ProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectController.m; sourceTree = "<group>"; };
 		EEA335231A7437730009C92A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -73,6 +71,13 @@
 		EEA335281A786D470009C92A /* CustomEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEntryViewController.h; sourceTree = "<group>"; };
 		EEA335291A786D470009C92A /* CustomEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEntryViewController.m; sourceTree = "<group>"; };
 		EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomEntryViewController.xib; sourceTree = "<group>"; };
+		EED538431A7C0721008958C7 /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stack.h; path = "../../../../Downloads/gistbeac49ea7541269438ac-ea7f4d6b66d85428e961555afa2a793189a5b807/Stack.h"; sourceTree = "<group>"; };
+		EED538441A7C0721008958C7 /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Stack.m; path = "../../../../Downloads/gistbeac49ea7541269438ac-ea7f4d6b66d85428e961555afa2a793189a5b807/Stack.m"; sourceTree = "<group>"; };
+		EED538471A7C0742008958C7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		EED538491A7C10E4008958C7 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		EED5384A1A7C10E4008958C7 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		EED5384C1A7C10FA008958C7 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
+		EED5384D1A7C10FA008958C7 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,10 +149,13 @@
 				EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */,
 				EEA334EE1A7429E60009C92A /* ProjectController.h */,
 				EEA334EF1A7429E60009C92A /* ProjectController.m */,
-				EEA334E81A74289B0009C92A /* Project.h */,
-				EEA334E91A74289B0009C92A /* Project.m */,
-				EEA334EB1A7428AA0009C92A /* Entry.h */,
-				EEA334EC1A7428AA0009C92A /* Entry.m */,
+				EED538431A7C0721008958C7 /* Stack.h */,
+				EED538441A7C0721008958C7 /* Stack.m */,
+				EED538461A7C0742008958C7 /* Model.xcdatamodeld */,
+				EED538491A7C10E4008958C7 /* Project.h */,
+				EED5384A1A7C10E4008958C7 /* Project.m */,
+				EED5384C1A7C10FA008958C7 /* Entry.h */,
+				EED5384D1A7C10FA008958C7 /* Entry.m */,
 				EE40EB051A797558007BCEA0 /* CustomTableViewCell.h */,
 				EE40EB061A797558007BCEA0 /* CustomTableViewCell.m */,
 				7116F78719421700006C8F06 /* Images.xcassets */,
@@ -284,13 +292,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7116F78619421700006C8F06 /* TTAppDelegate.m in Sources */,
-				EEA334ED1A7428AA0009C92A /* Entry.m in Sources */,
 				EEA3352B1A786D470009C92A /* CustomEntryViewController.m in Sources */,
 				7116F78219421700006C8F06 /* main.m in Sources */,
+				EED5384E1A7C10FA008958C7 /* Entry.m in Sources */,
+				EED5384B1A7C10E4008958C7 /* Project.m in Sources */,
 				EEA334F01A7429E60009C92A /* ProjectController.m in Sources */,
 				EE40EB071A797558007BCEA0 /* CustomTableViewCell.m in Sources */,
 				EEA334E71A7425D40009C92A /* ListViewController.m in Sources */,
-				EEA334EA1A74289B0009C92A /* Project.m in Sources */,
+				EED538451A7C0721008958C7 /* Stack.m in Sources */,
+				EED538481A7C0742008958C7 /* Model.xcdatamodeld in Sources */,
 				EEA335261A7437730009C92A /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +510,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EED538461A7C0742008958C7 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EED538471A7C0742008958C7 /* Model.xcdatamodel */,
+			);
+			currentVersion = EED538471A7C0742008958C7 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7116F76A19421700006C8F06 /* Project object */;
 }

@@ -16,8 +16,6 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell Two"];
     self.textLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:10];
     self.detailTextLabel.font = [UIFont boldSystemFontOfSize:11];
-   
-    
     
     return self;
 }

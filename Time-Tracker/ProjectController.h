@@ -12,14 +12,22 @@
 
 @interface ProjectController : NSObject
 
-@property(readonly, strong)NSArray *projects;
+@property(readonly, strong, nonatomic)NSArray *projects;
+//@property(readonly, strong, nonatomic)NSArray *entries;
+@property (nonatomic, strong)Project *project;
 
 
 + (ProjectController *)sharedInstance;
 
--(void)addProject:(Project *)project;
+-(void)addProjectWithTitle:(NSString *)title andText:(NSString *)text;
 -(void)removeProject:(Project *)project;
 - (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProjects;
-
+-(void)save;
+-(NSArray *)projects;
+-(void)startNewEntry;
+-(void)endCurrentEntry;
+-(void)addEntry:(Entry *)entry;
+-(NSString *)setProjectTime;
+-(NSString *)setEntryTime;
 
 @end

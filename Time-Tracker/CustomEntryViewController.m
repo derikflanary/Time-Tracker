@@ -7,6 +7,7 @@
 //
 
 #import "CustomEntryViewController.h"
+#import "ProjectController.h"
 
 
 @interface CustomEntryViewController ()
@@ -41,7 +42,7 @@
     }
     entry.startTime = self.startTimePicker.date;
     entry.endTime = self.endTimePicker.date;
-    [self.project addEntry:entry];
+    [[ProjectController sharedInstance] addEntry:entry];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

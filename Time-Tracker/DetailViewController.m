@@ -27,7 +27,7 @@
 
 -(void)updateThisProject:(Project *)project{
     self.titleLabel.text = self.project.projectTitle;
-    self.timeLabel.text = [self.project setProjectTime];
+    self.timeLabel.text = [[ProjectController sharedInstance]setProjectTime];
     self.textView.text = self.project.projectText;
 }
 
@@ -35,16 +35,18 @@
     [super viewDidLoad];
     self.detailTableView.dataSource = self;
     self.detailTableView.delegate = self;
-    self.updatedProject = self.project;
+    
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePressed:)];
     self.navigationItem.rightBarButtonItem = saveButton;
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-    [self updateThisProject:self.updatedProject];
+    
+    [self updateThisProject:self.project];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    self.timeLabel.text = [self.updatedProject setProjectTime];
+    self.timeLabel.text = [[ProjectController sharedInstance]setProjectTime];
     //[self updateThisProject:self.updatedProject];
 }
 
@@ -58,13 +60,13 @@
     
     }else if (self.project == nil) {
         self.project.projectTitle = self.titleLabel.text;
-        [[ProjectController sharedInstance]addProject:self.project];
+        [[ProjectController sharedInstance]addProjectWithTitle:self.titleLabel.text andText:self.textView.text];
     }else{
         
-        self.updatedProject.projectTitle = self.titleLabel.text;
-        self.updatedProject.projectText = self.textView.text;
-        [[ProjectController sharedInstance]replaceProject:self.project withEntry:self.updatedProject];
+        self.project.projectTitle = self.titleLabel.text;
+        self.project.projectText = self.textView.text;
         
+        [[ProjectController sharedInstance] save];
     }
     
 }
@@ -75,22 +77,22 @@
 }
 - (IBAction)addPressed:(id)sender {
     CustomEntryViewController *customViewController = [CustomEntryViewController new];
-    customViewController.project = self.updatedProject;
+    customViewController.project = self.project;
     [self.navigationController pushViewController:customViewController animated:YES];
 }
 
 - (IBAction)inPressed:(id)sender {
-    [self.updatedProject startNewEntry];
+    [[ProjectController sharedInstance] startNewEntry];
     self.inButton.enabled = NO;
     [self.detailTableView reloadData];
     
 }
 
 - (IBAction)outPressed:(id)sender {
-    [self.updatedProject endCurrentEntry];
+    [[ProjectController sharedInstance] endCurrentEntry];
     self.inButton.enabled = YES;
     [self.detailTableView reloadData];
-    self.timeLabel.text = [self.updatedProject setProjectTime];
+    self.timeLabel.text = [[ProjectController sharedInstance] setProjectTime];
 }
 - (IBAction)reportPressed:(id)sender {
     MFMailComposeViewController *mailViewController = [MFMailComposeViewController new];
@@ -101,7 +103,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.updatedProject.entries.count;
+    return self.project.entries.count;
 }
 
 
@@ -111,7 +113,7 @@
     if (!cell){
         cell = [CustomTableViewCell new];
     }
-    Entry *entry = [self.updatedProject.entries objectAtIndex:indexPath.row];
+    Entry *entry = [self.project.entries objectAtIndex:indexPath.row];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"dd-MM-yyyy 'at' HH:mm"];
     NSString *startdateOfEntry = [dateFormatter stringFromDate:entry.startTime];

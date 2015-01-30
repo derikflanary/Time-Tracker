@@ -7,12 +7,16 @@
 //
 
 #import "ProjectController.h"
+#import "Stack.h"
 
 static NSString * const projectKey = @"projectKey";
 
 @interface ProjectController()
 
-@property(nonatomic,strong)NSArray *projects;
+@property(nonatomic, strong)NSArray *projects;
+@property (nonatomic, strong)Entry *currentEntry;
+//@property(nonatomic, strong)NSArray *entries;
+
 
 @end
 
@@ -24,78 +28,137 @@ static NSString * const projectKey = @"projectKey";
     dispatch_once(&onceToken, ^{
         sharedInstance = [[ProjectController alloc] init];
         
-        [sharedInstance loadProjectsFromDefaults];
     });
     return sharedInstance;
 }
 
-
--(void)loadProjectsFromDefaults{
-    NSArray *projectDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:projectKey];
-    NSMutableArray *arrayOfProjects = [NSMutableArray array];
-    for (NSDictionary *projectDict in projectDictionaries) {
-        Project *project = [[Project alloc]initWithDictionary:projectDict];
-        [arrayOfProjects addObject:project];
-    }
-    for (Project *project in arrayOfProjects) {
-        NSMutableArray *mutableEntries = [NSMutableArray array];
-        for (NSDictionary *entryDict in project.entries) {
-            Entry *entry = [[Entry alloc]initWithDictionary:entryDict];
-            [mutableEntries addObject:entry];
-        }
-        project.entries = mutableEntries;
-    }
-    self.projects = arrayOfProjects;
-    
-}
-
--(void)saveProjectsToDefaults:(NSArray*)projectArray{
+-(void)addProjectWithTitle:(NSString *)title andText:(NSString *)text{
+    Project *newProject = [NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+    newProject.projectTitle = title;
+    newProject.projectText = text;
    
-           NSMutableArray *mutableProjectDictionariesArray = [NSMutableArray array];
     
-    for (Project *project in projectArray) {
-         NSMutableArray *mutableEntries = [NSMutableArray array];
-        
-        for (Entry *entry in project.entries) {
-            NSDictionary *entryDict = [NSDictionary dictionary];
-            entryDict = [entry makeEntryIntoDictionary];
-            [mutableEntries addObject:entryDict];
-        }
-        project.entries = mutableEntries;
-        NSDictionary *projectDictionary = [project makeProjectIntoDictionary];
-        [mutableProjectDictionariesArray addObject:projectDictionary];
-    }
-    [[NSUserDefaults standardUserDefaults]setObject:mutableProjectDictionariesArray forKey:projectKey];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    
+    [self save];
 }
 
--(void)addProject:(Project *)project{
-    NSMutableArray *mutableProjectArray = [[NSMutableArray alloc]initWithArray:self.projects];
-    [mutableProjectArray addObject:project];
-    self.projects = mutableProjectArray;
-    [self saveProjectsToDefaults:self.projects];
-    [self loadProjectsFromDefaults];
+-(void)save{
+    [[Stack sharedInstance].managedObjectContext save:NULL];
 }
+
+
 
 -(void)removeProject:(Project *)project{
+    [[Stack sharedInstance].managedObjectContext deleteObject:project];
+    [self save];
+}
+
+-(NSArray *)projects{
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
+    NSArray *allProjects = [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+    return allProjects;
+}
+
+
+- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProject{
     
 }
 
-- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProject{
-    if(!oldProject || !newProject){
+
+////////////ADDED FROM PROJECT.M/////////////////
+
+-(void)startNewEntry{
+    Entry *newEntry = [Entry new];
+    newEntry.startTime = [NSDate date];
+    self.currentEntry = newEntry;
+    [self addEntry:newEntry];
+    
+}
+-(void)endCurrentEntry{
+    self.currentEntry.endTime = [NSDate date];
+    //[self addEntry:self.currentEntry];
+}
+
+-(void)addEntry:(Entry *)entry{
+    if (!entry){
         return;
     }
-    NSMutableArray *mutableProjects = self.projects.mutableCopy;
-    if ([mutableProjects containsObject:oldProject]) {
-        NSInteger indexN = [mutableProjects indexOfObject:oldProject];
-        [mutableProjects replaceObjectAtIndex:indexN withObject:newProject];
+    [self.project addEntriesObject:entry];
+    
+}
+
+-(void)removeEntry:(Entry *)entry{
+    if (!entry){
+        return;
     }
+    [self.project removeEntriesObject:entry];
     
-    self.projects = mutableProjects;
-    [self saveProjectsToDefaults:self.projects];
-    [self loadProjectsFromDefaults];
+}
+
+-(NSString *)setProjectTime{
     
+    NSInteger totalHours = 0;
+    NSInteger totalMinutes = 0;
+    
+    for (Entry *entry in self.project.entries) {
+        
+        NSTimeInterval distanceBetweenDates = [entry.endTime timeIntervalSinceDate:entry.startTime];
+        if (distanceBetweenDates > 0) {
+            // First we'll see how many hours
+            double secondsInAnHour = 3600;
+            NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+            
+            // We need to subtract out the hours and then see how many minutes
+            double secondsInAMinute = 60;
+            NSInteger minutesBetweenDates = (distanceBetweenDates - (hoursBetweenDates * secondsInAnHour)) / secondsInAMinute;
+            
+            totalHours += hoursBetweenDates;
+            totalMinutes += minutesBetweenDates;
+            if (totalMinutes > 59) {
+                NSInteger hoursInMinutes = totalMinutes/60;
+                totalMinutes = totalMinutes - (hoursInMinutes * 60);
+                totalHours = totalHours + hoursInMinutes;
+            }
+            
+        }
+        
+    }
+    NSString *hourString = totalHours < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalHours] : [NSString stringWithFormat:@"%ld", (long)totalHours];
+    
+    NSString *minuteString = totalMinutes < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalMinutes] : [NSString stringWithFormat:@"%ld", (long)totalMinutes];
+    
+    return [NSString stringWithFormat:@"%@:%@", hourString, minuteString];
+}
+
+- (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry{
+    
+}
+
+-(NSString *)setEntryTime {
+    
+    NSInteger totalHours = 0;
+    NSInteger totalMinutes = 0;
+    
+    
+    NSTimeInterval distanceBetweenDates = [self.currentEntry.endTime timeIntervalSinceDate:self.currentEntry.startTime];
+    
+    // First we'll see how many hours
+    double secondsInAnHour = 3600;
+    NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+    
+    // We need to subtract out the hours and then see how many minutes
+    double secondsInAMinute = 60;
+    NSInteger minutesBetweenDates = (distanceBetweenDates - (hoursBetweenDates * secondsInAnHour)) / secondsInAMinute;
+    
+    totalHours += hoursBetweenDates;
+    totalMinutes += minutesBetweenDates;
+    
+    
+    NSString *hourString = totalHours < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalHours] : [NSString stringWithFormat:@"%ld", (long)totalHours];
+    
+    NSString *minuteString = totalMinutes < 10 ? [NSString stringWithFormat:@"0%ld", (long)totalMinutes] : [NSString stringWithFormat:@"%ld", (long)totalMinutes];
+    
+    return [NSString stringWithFormat:@"%@:%@", hourString, minuteString];
 }
 
 

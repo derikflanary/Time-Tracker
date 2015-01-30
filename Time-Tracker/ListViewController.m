@@ -53,6 +53,7 @@
         cell = [UITableViewCell new];
     }
     Project *project = [self.projects objectAtIndex:indexPath.row];
+    [ProjectController sharedInstance].project = project;
     cell.textLabel.text = project.projectTitle;
     return cell;
 }
@@ -76,5 +77,17 @@
     detailViewController.project = newProject;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    NSArray*projectArray = self.projects;
+    //
+    Project *project= [projectArray objectAtIndex:indexPath.row];
+//    [self.updatedProject removeEntry:entry];
+//    [self.detailTableView reloadData];
+//    self.timeLabel.text = [self.updatedProject setProjectTime];
+    //        //    }
+}
+
 
 @end

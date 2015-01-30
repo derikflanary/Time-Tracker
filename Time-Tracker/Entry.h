@@ -1,21 +1,20 @@
 //
-//  Entries.h
+//  Entry.h
 //  Time-Tracker
 //
-//  Created by Derik Flanary on 1/24/15.
+//  Created by Derik Flanary on 1/30/15.
 //  Copyright (c) 2015 DevMountain. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Entry : NSObject
+@class Project;
 
-@property (nonatomic, strong)NSDate*startTime;
-@property (nonatomic, strong)NSDate *endTime;
-//@property (nonatomic, strong)NSDate *entryTime;
+@interface Entry : NSManagedObject
 
--(id)initWithDictionary:(NSDictionary *)dictionary;
--(NSDictionary *)makeEntryIntoDictionary;
--(NSString *)setEntryTime;
+@property (nonatomic, retain) NSDate * startTime;
+@property (nonatomic, retain) NSDate * endTime;
+@property (nonatomic, retain) Project *project;
 
 @end

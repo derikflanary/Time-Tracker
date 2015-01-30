@@ -1,32 +1,28 @@
 //
-//  Projects.h
+//  Project.h
 //  Time-Tracker
 //
-//  Created by Derik Flanary on 1/24/15.
+//  Created by Derik Flanary on 1/30/15.
 //  Copyright (c) 2015 DevMountain. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-#import "Entry.h"
-
-@interface Project : NSObject
-
-@property (nonatomic, strong)NSString *projectTitle;
-@property (nonatomic, strong)NSString *projectText;
-@property (nonatomic, strong)NSDate *projectTime;
-@property (nonatomic, strong)NSArray *entries;
+#import <CoreData/CoreData.h>
 
 
+@interface Project : NSManagedObject
 
+@property (nonatomic, retain) NSString * projectTitle;
+@property (nonatomic, retain) NSString * projectText;
+@property (nonatomic, retain) NSDate * projectTime;
+@property (nonatomic, retain) NSSet *entries;
+@end
 
--(id)initWithDictionary:(NSDictionary *)dictionary;
--(NSDictionary *)makeProjectIntoDictionary;
--(void)addEntry:(Entry *)entry;
--(void)removeEntry:(Entry *)entry;
-- (void)replaceEntry:(Entry *)oldEntry withEntry:(Entry *)newEntry;
--(void)startNewEntry;
--(void)endCurrentEntry;
--(NSString *)setProjectTime;
+@interface Project (CoreDataGeneratedAccessors)
+
+- (void)addEntriesObject:(NSManagedObject *)value;
+- (void)removeEntriesObject:(NSManagedObject *)value;
+- (void)addEntries:(NSSet *)values;
+- (void)removeEntries:(NSSet *)values;
 
 @end

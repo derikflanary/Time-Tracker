@@ -12,7 +12,7 @@
 
 @interface DetailViewController : UIViewController
 @property (nonatomic, strong)Project *project;
-@property (nonatomic, strong)Project *updatedProject;
+
 
 
 @end
