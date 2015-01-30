@@ -118,7 +118,7 @@
     [dateFormatter setDateFormat:@"dd-MM-yyyy 'at' HH:mm"];
     NSString *startdateOfEntry = [dateFormatter stringFromDate:entry.startTime];
     NSString *endDateofEntry = [dateFormatter stringFromDate:entry.endTime];
-    NSString *entryTime = [entry setEntryTime];
+    NSString *entryTime = [[ProjectController sharedInstance] setEntryTime];
     
     cell.textLabel.text = [NSString stringWithFormat:@"In: %@ | Out: %@", startdateOfEntry, endDateofEntry];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Time: %@", entryTime];
@@ -140,7 +140,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //    if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSArray*entryArray = self.updatedProject.entries;
+    NSArray*entryArray = self.project.entries;
     //
     Entry *entry = [entryArray objectAtIndex:indexPath.row];
     [self.updatedProject removeEntry:entry];
