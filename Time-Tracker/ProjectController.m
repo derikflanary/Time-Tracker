@@ -32,6 +32,11 @@ static NSString * const projectKey = @"projectKey";
     return sharedInstance;
 }
 
+-(Project *)addNewProject{
+    Project *newProject = [NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+    return newProject;
+}
+
 -(void)addProjectWithTitle:(NSString *)title andText:(NSString *)text{
     Project *newProject = [NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     newProject.projectTitle = title;
@@ -60,18 +65,15 @@ static NSString * const projectKey = @"projectKey";
 }
 
 
-- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProject{
-    
-}
-
 
 ////////////ADDED FROM PROJECT.M/////////////////
 
 -(void)startNewEntry{
-    Entry *newEntry = [Entry new];
+    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Entry" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     newEntry.startTime = [NSDate date];
     self.currentEntry = newEntry;
-    [self addEntry:newEntry];
+    [self.project addEntriesObject:self.currentEntry];
+    [self save];
     
 }
 -(void)endCurrentEntry{
@@ -79,11 +81,13 @@ static NSString * const projectKey = @"projectKey";
     //[self addEntry:self.currentEntry];
 }
 
--(void)addEntry:(Entry *)entry{
-    if (!entry){
-        return;
-    }
-    [self.project addEntriesObject:entry];
+-(void)addEntryWithStartTime:(NSDate *)startTime andEndTime:(NSDate *)endTime{
+     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Entry" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+    newEntry.startTime = startTime;
+    newEntry.endTime = endTime;
+    [self.project addEntriesObject:newEntry];
+    
+    [self save];
     
 }
 
@@ -134,13 +138,12 @@ static NSString * const projectKey = @"projectKey";
     
 }
 
--(NSString *)setEntryTime {
+-(NSString *)setEntryTime:(Entry *)entry{
     
     NSInteger totalHours = 0;
     NSInteger totalMinutes = 0;
     
-    
-    NSTimeInterval distanceBetweenDates = [self.currentEntry.endTime timeIntervalSinceDate:self.currentEntry.startTime];
+    NSTimeInterval distanceBetweenDates = [entry.endTime timeIntervalSinceDate:entry.startTime];
     
     // First we'll see how many hours
     double secondsInAnHour = 3600;

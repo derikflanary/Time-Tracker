@@ -113,12 +113,13 @@
     if (!cell){
         cell = [CustomTableViewCell new];
     }
-    Entry *entry = [self.project.entries objectAtIndex:indexPath.row];
+    NSArray *entriesArray = [self.project.entries allObjects];
+    Entry *entry = [entriesArray objectAtIndex:indexPath.row];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"dd-MM-yyyy 'at' HH:mm"];
     NSString *startdateOfEntry = [dateFormatter stringFromDate:entry.startTime];
     NSString *endDateofEntry = [dateFormatter stringFromDate:entry.endTime];
-    NSString *entryTime = [[ProjectController sharedInstance] setEntryTime];
+    NSString *entryTime = [[ProjectController sharedInstance] setEntryTime:entry];
     
     cell.textLabel.text = [NSString stringWithFormat:@"In: %@ | Out: %@", startdateOfEntry, endDateofEntry];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Total Time: %@", entryTime];
@@ -140,12 +141,13 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //    if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSArray*entryArray = self.project.entries;
+    NSArray *entryArray = [self.project.entries allObjects];;
     //
     Entry *entry = [entryArray objectAtIndex:indexPath.row];
-    [self.updatedProject removeEntry:entry];
+    [[ProjectController sharedInstance] removeEntry:entry];
+    
     [self.detailTableView reloadData];
-    self.timeLabel.text = [self.updatedProject setProjectTime];
+    self.timeLabel.text = [[ProjectController sharedInstance] setProjectTime];
     //        //    }
 }
 

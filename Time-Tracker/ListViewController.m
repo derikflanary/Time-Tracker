@@ -42,7 +42,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
+    self.projects = [ProjectController sharedInstance].projects;
     return [self.projects count];
 }
 
@@ -53,7 +53,7 @@
         cell = [UITableViewCell new];
     }
     Project *project = [self.projects objectAtIndex:indexPath.row];
-    [ProjectController sharedInstance].project = project;
+    
     cell.textLabel.text = project.projectTitle;
     return cell;
 }
@@ -65,6 +65,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Project *thisProject = [self.projects objectAtIndex:indexPath.row];
+    [ProjectController sharedInstance].project = thisProject;
     DetailViewController *detailViewController = [DetailViewController new];
     detailViewController.project = thisProject;
     [self.navigationController pushViewController:detailViewController animated:YES];
@@ -72,21 +73,21 @@
 }
 
 -(void)newProject:(id)sender{
-    Project *newProject = [Project new];
     DetailViewController *detailViewController = [DetailViewController new];
-    detailViewController.project = newProject;
     [self.navigationController pushViewController:detailViewController animated:YES];
+    Project *newProject = [[ProjectController sharedInstance] addNewProject];
+    [ProjectController sharedInstance].project = newProject;
+    detailViewController.project = newProject;
+    
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    
     NSArray*projectArray = self.projects;
-    //
     Project *project= [projectArray objectAtIndex:indexPath.row];
-//    [self.updatedProject removeEntry:entry];
-//    [self.detailTableView reloadData];
-//    self.timeLabel.text = [self.updatedProject setProjectTime];
-    //        //    }
+    [[ProjectController sharedInstance] removeProject:project];
+    [self.tableView reloadData];
+
 }
 
 

@@ -19,15 +19,16 @@
 
 + (ProjectController *)sharedInstance;
 
+-(Project *)addNewProject;
 -(void)addProjectWithTitle:(NSString *)title andText:(NSString *)text;
 -(void)removeProject:(Project *)project;
-- (void)replaceProject:(Project *)oldProject withEntry:(Project *)newProjects;
 -(void)save;
 -(NSArray *)projects;
 -(void)startNewEntry;
 -(void)endCurrentEntry;
--(void)addEntry:(Entry *)entry;
+-(void)removeEntry:(Entry *)entry;
 -(NSString *)setProjectTime;
--(NSString *)setEntryTime;
+-(NSString *)setEntryTime:(Entry *)entry;
+-(void)addEntryWithStartTime:(NSDate *)startTime andEndTime:(NSDate *)endTime;
 
 @end

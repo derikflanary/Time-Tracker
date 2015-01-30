@@ -31,7 +31,7 @@
 }
 
 -(void)saveEntryPressed:(id)selector{
-    Entry *entry = [Entry new];
+    
     NSTimeInterval distanceBetweenDates = [self.endTimePicker.date timeIntervalSinceDate:self.startTimePicker.date];
     if (distanceBetweenDates < 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"End Date Is Before Start Date" message:@"Your end date most take place after your start date" preferredStyle:UIAlertControllerStyleAlert];
@@ -40,9 +40,9 @@
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
-    entry.startTime = self.startTimePicker.date;
-    entry.endTime = self.endTimePicker.date;
-    [[ProjectController sharedInstance] addEntry:entry];
+    NSDate *start = self.startTimePicker.date;
+    NSDate *end = self.endTimePicker.date;
+    [[ProjectController sharedInstance] addEntryWithStartTime:start andEndTime:end];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
