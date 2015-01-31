@@ -10,16 +10,19 @@
 #import "CustomEntryViewController.h"
 #import "CustomTableViewCell.h"
 #import <MessageUI/MessageUI.h>
+#import "Stack.h"
 
 
 
-@interface DetailViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@interface DetailViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *detailTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *inButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *outButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic, strong)NSFetchedResultsController *fetchedResultsController;
 
 @end
 
@@ -102,6 +105,16 @@
 
 }
 
+#pragma mark - TableView DataSource
+
+-(void)configureFetchedResultsController{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[Stack sharedInstance].managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController.delegate = self;
+    [self.fetchedResultsController performFetch:nil];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.project.entries.count;
 }
@@ -127,6 +140,50 @@
     return cell;
 }
 
+#pragma mark - TableView Delegate
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    NSArray *entryArray = [self.project.entries allObjects];;
+    //
+    Entry *entry = [entryArray objectAtIndex:indexPath.row];
+    [[ProjectController sharedInstance] removeEntry:entry];
+    
+    [self.detailTableView reloadData];
+    self.timeLabel.text = [[ProjectController sharedInstance] setProjectTime];
+    //        //    }
+}
+
+#pragma mark - FetchedController Delegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - Other Delegates
 -(void)dismissKeyboard{
     [self.titleLabel resignFirstResponder];
 }
@@ -139,17 +196,6 @@
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSArray *entryArray = [self.project.entries allObjects];;
-    //
-    Entry *entry = [entryArray objectAtIndex:indexPath.row];
-    [[ProjectController sharedInstance] removeEntry:entry];
-    
-    [self.detailTableView reloadData];
-    self.timeLabel.text = [[ProjectController sharedInstance] setProjectTime];
-    //        //    }
-}
 
 
 /*

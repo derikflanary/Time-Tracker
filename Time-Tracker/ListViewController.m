@@ -9,11 +9,13 @@
 #import "ListViewController.h"
 #import "ProjectController.h"
 #import "DetailViewController.h"
+#import "Stack.h"
 
 
-@interface ListViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface ListViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NSArray *projects;
+@property (nonatomic, strong)NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation ListViewController
@@ -36,13 +38,26 @@
     self.navigationItem.rightBarButtonItem = addProjectButton;
     
     self.projects = [ProjectController sharedInstance].projects;
-    
-    
-    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - TableView DataSource
+
+-(void)configureFetchedResultsController{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[Stack sharedInstance].managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController.delegate = self;
+    [self.fetchedResultsController performFetch:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     self.projects = [ProjectController sharedInstance].projects;
+    //return self.fetchedResultsController.fetchedObjects.count;
     return [self.projects count];
 }
 
@@ -52,16 +67,43 @@
     if (!cell){
         cell = [UITableViewCell new];
     }
+    //Project *project = self.fetchedResultsController.fetchedObjects[indexPath.row];
     Project *project = [self.projects objectAtIndex:indexPath.row];
-    
     cell.textLabel.text = project.projectTitle;
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - FetchedResultsController Delegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
 }
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - TableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Project *thisProject = [self.projects objectAtIndex:indexPath.row];
@@ -72,6 +114,17 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSArray*projectArray = self.projects;
+    Project *project= [projectArray objectAtIndex:indexPath.row];
+    [[ProjectController sharedInstance] removeProject:project];
+    [self.tableView reloadData];
+    
+}
+
+#pragma mark - Other
+
 -(void)newProject:(id)sender{
     DetailViewController *detailViewController = [DetailViewController new];
     [self.navigationController pushViewController:detailViewController animated:YES];
@@ -81,14 +134,6 @@
     
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSArray*projectArray = self.projects;
-    Project *project= [projectArray objectAtIndex:indexPath.row];
-    [[ProjectController sharedInstance] removeProject:project];
-    [self.tableView reloadData];
-
-}
 
 
 @end
