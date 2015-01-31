@@ -36,8 +36,8 @@
     
     UIBarButtonItem *addProjectButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newProject:)];
     self.navigationItem.rightBarButtonItem = addProjectButton;
-    
-    self.projects = [ProjectController sharedInstance].projects;
+    [self configureFetchedResultsController];
+    //self.projects = [ProjectController sharedInstance].projects;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,15 +49,15 @@
 
 -(void)configureFetchedResultsController{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[Stack sharedInstance].managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //return self.fetchedResultsController.fetchedObjects.count;
-    return [self.projects count];
+    return self.fetchedResultsController.fetchedObjects.count;
+    //return [self.projects count];
 }
 
 
@@ -66,8 +66,8 @@
     if (!cell){
         cell = [UITableViewCell new];
     }
-    //Project *project = self.fetchedResultsController.fetchedObjects[indexPath.row];
-    Project *project = [self.projects objectAtIndex:indexPath.row];
+    Project *project = self.fetchedResultsController.fetchedObjects[indexPath.row];
+    //Project *project = [self.projects objectAtIndex:indexPath.row];
     cell.textLabel.text = project.projectTitle;
     return cell;
 }
@@ -105,8 +105,10 @@
 #pragma mark - TableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Project *thisProject = [self.projects objectAtIndex:indexPath.row];
+    Project *thisProject = self.fetchedResultsController.fetchedObjects[indexPath.row];
+    
     [ProjectController sharedInstance].project = thisProject;
+    
     DetailViewController *detailViewController = [DetailViewController new];
     detailViewController.project = thisProject;
     [self.navigationController pushViewController:detailViewController animated:YES];
@@ -115,12 +117,10 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSArray*projectArray = self.projects;
-    Project *project= [projectArray objectAtIndex:indexPath.row];
+    Project *project= self.fetchedResultsController.fetchedObjects[indexPath.row];
     [[ProjectController sharedInstance] removeProject:project];
-    self.projects = [ProjectController sharedInstance].projects;
-    [self.tableView reloadData];
     
+    //[self.tableView reloadData];
 }
 
 #pragma mark - Other
@@ -128,7 +128,9 @@
 -(void)newProject:(id)sender{
     DetailViewController *detailViewController = [DetailViewController new];
     [self.navigationController pushViewController:detailViewController animated:YES];
+    
     Project *newProject = [[ProjectController sharedInstance] addNewProject];
+    newProject.position = [NSNumber numberWithInteger:self.projects.count];
     [ProjectController sharedInstance].project = newProject;
     detailViewController.project = newProject;
     

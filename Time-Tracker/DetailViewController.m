@@ -15,7 +15,7 @@
 
 
 
-@interface DetailViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface DetailViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *detailTableView;
@@ -109,7 +109,7 @@
 
 -(void)configureFetchedResultsController{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"endTime" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[Stack sharedInstance].managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
@@ -186,6 +186,8 @@
 #pragma mark - Other Delegates
 -(void)dismissKeyboard{
     [self.titleLabel resignFirstResponder];
+    [self.textView resignFirstResponder];
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
