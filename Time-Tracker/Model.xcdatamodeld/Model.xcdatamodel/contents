@@ -6,13 +6,14 @@
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="entries" inverseEntity="Project" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
+        <attribute name="position" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="projectText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="projectTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="projectTitle" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Entry" inverseName="project" inverseEntity="Entry" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Project" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="Entry" positionX="-54" positionY="27" width="128" height="88"/>
     </elements>
 </model>

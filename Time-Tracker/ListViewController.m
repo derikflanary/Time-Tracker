@@ -56,7 +56,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    self.projects = [ProjectController sharedInstance].projects;
     //return self.fetchedResultsController.fetchedObjects.count;
     return [self.projects count];
 }
@@ -119,6 +118,7 @@
     NSArray*projectArray = self.projects;
     Project *project= [projectArray objectAtIndex:indexPath.row];
     [[ProjectController sharedInstance] removeProject:project];
+    self.projects = [ProjectController sharedInstance].projects;
     [self.tableView reloadData];
     
 }

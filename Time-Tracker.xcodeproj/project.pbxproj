@@ -28,8 +28,8 @@
 		EEA3352C1A786D470009C92A /* CustomEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA3352A1A786D470009C92A /* CustomEntryViewController.xib */; };
 		EED538451A7C0721008958C7 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = EED538441A7C0721008958C7 /* Stack.m */; };
 		EED538481A7C0742008958C7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EED538461A7C0742008958C7 /* Model.xcdatamodeld */; };
-		EED5384B1A7C10E4008958C7 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = EED5384A1A7C10E4008958C7 /* Project.m */; };
 		EED5384E1A7C10FA008958C7 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = EED5384D1A7C10FA008958C7 /* Entry.m */; };
+		EED538511A7D799D008958C7 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = EED538501A7D799D008958C7 /* Project.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,10 +74,10 @@
 		EED538431A7C0721008958C7 /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stack.h; path = "../../../../Downloads/gistbeac49ea7541269438ac-ea7f4d6b66d85428e961555afa2a793189a5b807/Stack.h"; sourceTree = "<group>"; };
 		EED538441A7C0721008958C7 /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Stack.m; path = "../../../../Downloads/gistbeac49ea7541269438ac-ea7f4d6b66d85428e961555afa2a793189a5b807/Stack.m"; sourceTree = "<group>"; };
 		EED538471A7C0742008958C7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		EED538491A7C10E4008958C7 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
-		EED5384A1A7C10E4008958C7 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		EED5384C1A7C10FA008958C7 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
 		EED5384D1A7C10FA008958C7 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
+		EED5384F1A7D799D008958C7 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		EED538501A7D799D008958C7 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,8 +152,8 @@
 				EED538431A7C0721008958C7 /* Stack.h */,
 				EED538441A7C0721008958C7 /* Stack.m */,
 				EED538461A7C0742008958C7 /* Model.xcdatamodeld */,
-				EED538491A7C10E4008958C7 /* Project.h */,
-				EED5384A1A7C10E4008958C7 /* Project.m */,
+				EED5384F1A7D799D008958C7 /* Project.h */,
+				EED538501A7D799D008958C7 /* Project.m */,
 				EED5384C1A7C10FA008958C7 /* Entry.h */,
 				EED5384D1A7C10FA008958C7 /* Entry.m */,
 				EE40EB051A797558007BCEA0 /* CustomTableViewCell.h */,
@@ -295,7 +295,7 @@
 				EEA3352B1A786D470009C92A /* CustomEntryViewController.m in Sources */,
 				7116F78219421700006C8F06 /* main.m in Sources */,
 				EED5384E1A7C10FA008958C7 /* Entry.m in Sources */,
-				EED5384B1A7C10E4008958C7 /* Project.m in Sources */,
+				EED538511A7D799D008958C7 /* Project.m in Sources */,
 				EEA334F01A7429E60009C92A /* ProjectController.m in Sources */,
 				EE40EB071A797558007BCEA0 /* CustomTableViewCell.m in Sources */,
 				EEA334E71A7425D40009C92A /* ListViewController.m in Sources */,

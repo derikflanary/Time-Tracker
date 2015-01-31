@@ -60,7 +60,7 @@ static NSString * const projectKey = @"projectKey";
 -(NSArray *)projects{
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Project"];
-    NSArray *allProjects = [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+    NSArray *allProjects = [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:Nil];
     return allProjects;
 }
 
