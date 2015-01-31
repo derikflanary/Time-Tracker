@@ -22,8 +22,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.projects = [ProjectController sharedInstance].projects;
-    [self.tableView reloadData];
+//    self.projects = [ProjectController sharedInstance].projects;
+//    [self.tableView reloadData];
     
 }
 - (void)viewDidLoad {

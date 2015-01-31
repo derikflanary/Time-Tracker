@@ -46,6 +46,7 @@
     [self.view addGestureRecognizer:tap];
     
     [self updateThisProject:self.project];
+    [self fetchedResultsController];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -109,6 +110,7 @@
 
 -(void)configureFetchedResultsController{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"project = %@", self.project];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"endTime" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[Stack sharedInstance].managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController.delegate = self;
@@ -116,7 +118,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.project.entries.count;
+    //return self.project.entries.count;
+    return self.fetchedResultsController.fetchedObjects.count;
 }
 
 
@@ -126,8 +129,9 @@
     if (!cell){
         cell = [CustomTableViewCell new];
     }
-    NSArray *entriesArray = [self.project.entries allObjects];
-    Entry *entry = [entriesArray objectAtIndex:indexPath.row];
+    Entry *entry = self.fetchedResultsController.fetchedObjects[indexPath.row];
+//    NSArray *entriesArray = [self.project.entries allObjects];
+//    Entry *entry = [entriesArray objectAtIndex:indexPath.row];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"dd-MM-yyyy 'at' HH:mm"];
     NSString *startdateOfEntry = [dateFormatter stringFromDate:entry.startTime];

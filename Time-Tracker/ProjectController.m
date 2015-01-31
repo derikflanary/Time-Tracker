@@ -65,7 +65,7 @@ static NSString * const projectKey = @"projectKey";
 }
 
 
-
+#pragma mark - Entry Methods
 ////////////ADDED FROM PROJECT.M/////////////////
 
 -(void)startNewEntry{
@@ -98,6 +98,8 @@ static NSString * const projectKey = @"projectKey";
     [self.project removeEntriesObject:entry];
     
 }
+
+#pragma mark Time Methods
 
 -(NSString *)setProjectTime{
     
