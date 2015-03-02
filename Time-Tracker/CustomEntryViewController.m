@@ -34,7 +34,7 @@
     
     NSTimeInterval distanceBetweenDates = [self.endTimePicker.date timeIntervalSinceDate:self.startTimePicker.date];
     if (distanceBetweenDates < 0) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"End Date Is Before Start Date" message:@"Your end date most take place after your start date" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"End Date Is Before Start Date" message:@"Your end date must take place after your start date" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         }]];
         [self presentViewController:alert animated:YES completion:nil];
